@@ -458,7 +458,7 @@ export function ChatActions(props: {
   const currentModel = chatStore.currentSession().mask.modelConfig.model;
   const currentProviderName =
     chatStore.currentSession().mask.modelConfig?.providerName ||
-    ServiceProvider.OpenAI;
+    ServiceProvider.Moonshot;
   const allModels = useAllModels();
   const models = useMemo(() => {
     const filteredModels = allModels.filter((m) => m.available);
@@ -1245,11 +1245,13 @@ function _Chat() {
             if (!res) return;
             if (payload.key) {
               accessStore.update(
-                (access) => (access.openaiApiKey = payload.key!),
+                (access) => (access.moonshotApiKey = payload.key!),
               );
             }
             if (payload.url) {
-              accessStore.update((access) => (access.openaiUrl = payload.url!));
+              accessStore.update(
+                (access) => (access.moonshotUrl = payload.url!),
+              );
             }
             accessStore.update((access) => (access.useCustomConfig = true));
           });
