@@ -127,7 +127,7 @@ export enum GoogleSafetySettingsThreshold {
 }
 
 export enum ModelProvider {
-  // Stability = "Stability",
+  Stability = "Stability",
   // GPT = "GPT",
   // GeminiPro = "GeminiPro",
   // Claude = "Claude",
@@ -151,13 +151,13 @@ export const Stability = {
 //   Vision: "2023-06-01",
 // };
 //
-// export const OpenaiPath = {
-//   ChatPath: "v1/chat/completions",
-//   ImagePath: "v1/images/generations",
-//   UsagePath: "dashboard/billing/usage",
-//   SubsPath: "dashboard/billing/subscription",
-//   ListModelPath: "v1/models",
-// };
+export const OpenaiPath = {
+  ChatPath: "v1/chat/completions",
+  ImagePath: "v1/images/generations",
+  UsagePath: "dashboard/billing/usage",
+  SubsPath: "dashboard/billing/subscription",
+  ListModelPath: "v1/models",
+};
 //
 // export const Azure = {
 //   ChatPath: (deployName: string, apiVersion: string) =>
@@ -195,7 +195,7 @@ export const Baidu = {
 };
 
 export const ByteDance = {
-  ExampleEndpoint: "https://ark.cn-beijing.volces.com/api/",
+  ExampleEndpoint: BYTEDANCE_BASE_URL,
   ChatPath: "api/v3/chat/completions",
 };
 

@@ -18,7 +18,6 @@ export function AuthPage() {
   const goChat = () => navigate(Path.Chat);
   const resetAccessCode = () => {
     accessStore.update((access) => {
-      access.openaiApiKey = "";
       access.accessCode = "";
     });
   }; // Reset access code to empty string
@@ -57,21 +56,10 @@ export function AuthPage() {
             className={styles["auth-input"]}
             type="password"
             placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
-            value={accessStore.openaiApiKey}
+            value={accessStore.moonshotApiKey}
             onChange={(e) => {
               accessStore.update(
-                (access) => (access.openaiApiKey = e.currentTarget.value),
-              );
-            }}
-          />
-          <input
-            className={styles["auth-input"]}
-            type="password"
-            placeholder={Locale.Settings.Access.Google.ApiKey.Placeholder}
-            value={accessStore.googleApiKey}
-            onChange={(e) => {
-              accessStore.update(
-                (access) => (access.googleApiKey = e.currentTarget.value),
+                (access) => (access.moonshotApiKey = e.currentTarget.value),
               );
             }}
           />
