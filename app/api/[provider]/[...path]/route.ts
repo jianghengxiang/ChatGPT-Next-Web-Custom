@@ -1,9 +1,9 @@
 import { ApiPath } from "@/app/constant";
 import { NextRequest, NextResponse } from "next/server";
-import { handle as openaiHandler } from "../../openai";
-import { handle as azureHandler } from "../../azure";
-import { handle as googleHandler } from "../../google";
-import { handle as anthropicHandler } from "../../anthropic";
+// import { handle as openaiHandler } from "../../openai";
+// import { handle as azureHandler } from "../../azure";
+// import { handle as googleHandler } from "../../google";
+// import { handle as anthropicHandler } from "../../anthropic";
 import { handle as baiduHandler } from "../../baidu";
 import { handle as bytedanceHandler } from "../../bytedance";
 import { handle as alibabaHandler } from "../../alibaba";
@@ -17,12 +17,6 @@ async function handle(
   const apiPath = `/api/${params.provider}`;
   console.log(`[${params.provider} Route] params `, params);
   switch (apiPath) {
-    case ApiPath.Azure:
-      return azureHandler(req, { params });
-    case ApiPath.Google:
-      return googleHandler(req, { params });
-    case ApiPath.Anthropic:
-      return anthropicHandler(req, { params });
     case ApiPath.Baidu:
       return baiduHandler(req, { params });
     case ApiPath.ByteDance:
@@ -37,7 +31,7 @@ async function handle(
     case ApiPath.Iflytek:
       return iflytekHandler(req, { params });
     default:
-      return openaiHandler(req, { params });
+      return moonshotHandler(req, { params });
   }
 }
 

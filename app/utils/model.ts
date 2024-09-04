@@ -19,6 +19,7 @@ const customProvider = (providerName: string) => ({
   id: providerName.toLowerCase(),
   providerName: providerName,
   providerType: "custom",
+  company: "",
   sorted: CustomSeq.next(providerName),
 });
 

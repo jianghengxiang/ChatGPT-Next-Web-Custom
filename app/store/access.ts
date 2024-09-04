@@ -15,17 +15,17 @@ let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 
 const isApp = getClientConfig()?.buildMode === "export";
 
-const DEFAULT_OPENAI_URL = isApp
-  ? DEFAULT_API_HOST + "/api/proxy/openai"
-  : ApiPath.OpenAI;
-
-const DEFAULT_GOOGLE_URL = isApp
-  ? DEFAULT_API_HOST + "/api/proxy/google"
-  : ApiPath.Google;
-
-const DEFAULT_ANTHROPIC_URL = isApp
-  ? DEFAULT_API_HOST + "/api/proxy/anthropic"
-  : ApiPath.Anthropic;
+// const DEFAULT_OPENAI_URL = isApp
+//   ? DEFAULT_API_HOST + "/api/proxy/openai"
+//   : ApiPath.OpenAI;
+//
+// const DEFAULT_GOOGLE_URL = isApp
+//   ? DEFAULT_API_HOST + "/api/proxy/google"
+//   : ApiPath.Google;
+//
+// const DEFAULT_ANTHROPIC_URL = isApp
+//   ? DEFAULT_API_HOST + "/api/proxy/anthropic"
+//   : ApiPath.Anthropic;
 
 const DEFAULT_BAIDU_URL = isApp
   ? DEFAULT_API_HOST + "/api/proxy/baidu"
@@ -59,27 +59,27 @@ const DEFAULT_ACCESS_STATE = {
   accessCode: "",
   useCustomConfig: false,
 
-  provider: ServiceProvider.OpenAI,
+  provider: ServiceProvider.Moonshot,
 
-  // openai
-  openaiUrl: DEFAULT_OPENAI_URL,
-  openaiApiKey: "",
-
-  // azure
-  azureUrl: "",
-  azureApiKey: "",
-  azureApiVersion: "2023-08-01-preview",
-
-  // google ai studio
-  googleUrl: DEFAULT_GOOGLE_URL,
-  googleApiKey: "",
-  googleApiVersion: "v1",
-  googleSafetySettings: GoogleSafetySettingsThreshold.BLOCK_ONLY_HIGH,
-
-  // anthropic
-  anthropicUrl: DEFAULT_ANTHROPIC_URL,
-  anthropicApiKey: "",
-  anthropicApiVersion: "2023-06-01",
+  // // openai
+  // openaiUrl: DEFAULT_OPENAI_URL,
+  // openaiApiKey: "",
+  //
+  // // azure
+  // azureUrl: "",
+  // azureApiKey: "",
+  // azureApiVersion: "2023-08-01-preview",
+  //
+  // // google ai studio
+  // googleUrl: DEFAULT_GOOGLE_URL,
+  // googleApiKey: "",
+  // googleApiVersion: "v1",
+  // googleSafetySettings: GoogleSafetySettingsThreshold.BLOCK_ONLY_HIGH,
+  //
+  // // anthropic
+  // anthropicUrl: DEFAULT_ANTHROPIC_URL,
+  // anthropicApiKey: "",
+  // anthropicApiVersion: "2023-06-01",
 
   // baidu
   baiduUrl: DEFAULT_BAIDU_URL,
@@ -132,21 +132,21 @@ export const useAccessStore = createPersistStore(
       return get().needCode;
     },
 
-    isValidOpenAI() {
-      return ensure(get(), ["openaiApiKey"]);
-    },
-
-    isValidAzure() {
-      return ensure(get(), ["azureUrl", "azureApiKey", "azureApiVersion"]);
-    },
-
-    isValidGoogle() {
-      return ensure(get(), ["googleApiKey"]);
-    },
-
-    isValidAnthropic() {
-      return ensure(get(), ["anthropicApiKey"]);
-    },
+    // isValidOpenAI() {
+    //   return ensure(get(), ["openaiApiKey"]);
+    // },
+    //
+    // isValidAzure() {
+    //   return ensure(get(), ["azureUrl", "azureApiKey", "azureApiVersion"]);
+    // },
+    //
+    // isValidGoogle() {
+    //   return ensure(get(), ["googleApiKey"]);
+    // },
+    //
+    // isValidAnthropic() {
+    //   return ensure(get(), ["anthropicApiKey"]);
+    // },
 
     isValidBaidu() {
       return ensure(get(), ["baiduApiKey", "baiduSecretKey"]);
@@ -176,10 +176,10 @@ export const useAccessStore = createPersistStore(
 
       // has token or has code or disabled access control
       return (
-        this.isValidOpenAI() ||
-        this.isValidAzure() ||
-        this.isValidGoogle() ||
-        this.isValidAnthropic() ||
+        // this.isValidOpenAI() ||
+        // this.isValidAzure() ||
+        // this.isValidGoogle() ||
+        // this.isValidAnthropic() ||
         this.isValidBaidu() ||
         this.isValidByteDance() ||
         this.isValidAlibaba() ||
@@ -205,7 +205,7 @@ export const useAccessStore = createPersistStore(
           // Set default model from env request
           let defaultModel = res.defaultModel ?? "";
           DEFAULT_CONFIG.modelConfig.model =
-            defaultModel !== "" ? defaultModel : "gpt-3.5-turbo";
+            defaultModel !== "" ? defaultModel : "moonshot-v1-8k";
           return res;
         })
         .then((res: DangerConfig) => {

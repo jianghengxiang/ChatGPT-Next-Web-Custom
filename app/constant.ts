@@ -104,10 +104,10 @@ export const REQUEST_TIMEOUT_MS = 60000;
 export const EXPORT_MESSAGE_CLASS_NAME = "export-markdown";
 
 export enum ServiceProvider {
-  OpenAI = "OpenAI",
-  Azure = "Azure",
-  Google = "Google",
-  Anthropic = "Anthropic",
+  // OpenAI = "OpenAI",
+  // Azure = "Azure",
+  // Google = "Google",
+  // Anthropic = "Anthropic",
   Baidu = "Baidu",
   ByteDance = "ByteDance",
   Alibaba = "Alibaba",
@@ -127,10 +127,10 @@ export enum GoogleSafetySettingsThreshold {
 }
 
 export enum ModelProvider {
-  Stability = "Stability",
-  GPT = "GPT",
-  GeminiPro = "GeminiPro",
-  Claude = "Claude",
+  // Stability = "Stability",
+  // GPT = "GPT",
+  // GeminiPro = "GeminiPro",
+  // Claude = "Claude",
   Ernie = "Ernie",
   Doubao = "Doubao",
   Qwen = "Qwen",
@@ -143,36 +143,36 @@ export const Stability = {
   GeneratePath: "v2beta/stable-image/generate",
   ExampleEndpoint: "https://api.stability.ai",
 };
-
-export const Anthropic = {
-  ChatPath: "v1/messages",
-  ChatPath1: "v1/complete",
-  ExampleEndpoint: "https://api.anthropic.com",
-  Vision: "2023-06-01",
-};
-
-export const OpenaiPath = {
-  ChatPath: "v1/chat/completions",
-  ImagePath: "v1/images/generations",
-  UsagePath: "dashboard/billing/usage",
-  SubsPath: "dashboard/billing/subscription",
-  ListModelPath: "v1/models",
-};
-
-export const Azure = {
-  ChatPath: (deployName: string, apiVersion: string) =>
-    `deployments/${deployName}/chat/completions?api-version=${apiVersion}`,
-  // https://<your_resource_name>.openai.azure.com/openai/deployments/<your_deployment_name>/images/generations?api-version=<api_version>
-  ImagePath: (deployName: string, apiVersion: string) =>
-    `deployments/${deployName}/images/generations?api-version=${apiVersion}`,
-  ExampleEndpoint: "https://{resource-url}/openai",
-};
-
-export const Google = {
-  ExampleEndpoint: "https://generativelanguage.googleapis.com/",
-  ChatPath: (modelName: string) =>
-    `v1beta/models/${modelName}:streamGenerateContent`,
-};
+//
+// export const Anthropic = {
+//   ChatPath: "v1/messages",
+//   ChatPath1: "v1/complete",
+//   ExampleEndpoint: "https://api.anthropic.com",
+//   Vision: "2023-06-01",
+// };
+//
+// export const OpenaiPath = {
+//   ChatPath: "v1/chat/completions",
+//   ImagePath: "v1/images/generations",
+//   UsagePath: "dashboard/billing/usage",
+//   SubsPath: "dashboard/billing/subscription",
+//   ListModelPath: "v1/models",
+// };
+//
+// export const Azure = {
+//   ChatPath: (deployName: string, apiVersion: string) =>
+//     `deployments/${deployName}/chat/completions?api-version=${apiVersion}`,
+//   // https://<your_resource_name>.openai.azure.com/openai/deployments/<your_deployment_name>/images/generations?api-version=<api_version>
+//   ImagePath: (deployName: string, apiVersion: string) =>
+//     `deployments/${deployName}/images/generations?api-version=${apiVersion}`,
+//   ExampleEndpoint: "https://{resource-url}/openai",
+// };
+//
+// export const Google = {
+//   ExampleEndpoint: "https://generativelanguage.googleapis.com/",
+//   ChatPath: (modelName: string) =>
+//     `v1beta/models/${modelName}:streamGenerateContent`,
+// };
 
 export const Baidu = {
   ExampleEndpoint: BAIDU_BASE_URL,
@@ -256,44 +256,6 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro-vision": "2023-12",
 };
 
-const openaiModels = [
-  "gpt-3.5-turbo",
-  "gpt-3.5-turbo-1106",
-  "gpt-3.5-turbo-0125",
-  "gpt-4",
-  "gpt-4-0613",
-  "gpt-4-32k",
-  "gpt-4-32k-0613",
-  "gpt-4-turbo",
-  "gpt-4-turbo-preview",
-  "gpt-4o",
-  "gpt-4o-2024-05-13",
-  "gpt-4o-2024-08-06",
-  "gpt-4o-mini",
-  "gpt-4o-mini-2024-07-18",
-  "gpt-4-vision-preview",
-  "gpt-4-turbo-2024-04-09",
-  "gpt-4-1106-preview",
-  "dall-e-3",
-];
-
-const googleModels = [
-  "gemini-1.0-pro",
-  "gemini-1.5-pro-latest",
-  "gemini-1.5-flash-latest",
-  "gemini-pro-vision",
-];
-
-const anthropicModels = [
-  "claude-instant-1.2",
-  "claude-2.0",
-  "claude-2.1",
-  "claude-3-sonnet-20240229",
-  "claude-3-opus-20240229",
-  "claude-3-haiku-20240307",
-  "claude-3-5-sonnet-20240620",
-];
-
 const baiduModels = [
   "ernie-4.0-turbo-8k",
   "ernie-4.0-8k",
@@ -349,48 +311,16 @@ const iflytekModels = [
 
 let seq = 1000; // 内置的模型序号生成器从1000开始
 export const DEFAULT_MODELS = [
-  ...openaiModels.map((name) => ({
-    name,
-    available: true,
-    sorted: seq++, // Global sequence sort(index)
-    provider: {
-      id: "openai",
-      providerName: "OpenAI",
-      providerType: "openai",
-      sorted: 1, // 这里是固定的，确保顺序与之前内置的版本一致
-    },
-  })),
-  ...openaiModels.map((name) => ({
+  ...moonshotModes.map((name) => ({
     name,
     available: true,
     sorted: seq++,
     provider: {
-      id: "azure",
-      providerName: "Azure",
-      providerType: "azure",
-      sorted: 2,
-    },
-  })),
-  ...googleModels.map((name) => ({
-    name,
-    available: true,
-    sorted: seq++,
-    provider: {
-      id: "google",
-      providerName: "Google",
-      providerType: "google",
-      sorted: 3,
-    },
-  })),
-  ...anthropicModels.map((name) => ({
-    name,
-    available: true,
-    sorted: seq++,
-    provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
-      sorted: 4,
+      id: "moonshot",
+      providerName: "Moonshot",
+      providerType: "moonshot",
+      company: "月之暗面",
+      sorted: 1,
     },
   })),
   ...baiduModels.map((name) => ({
@@ -401,6 +331,7 @@ export const DEFAULT_MODELS = [
       id: "baidu",
       providerName: "Baidu",
       providerType: "baidu",
+      company: "百度",
       sorted: 5,
     },
   })),
@@ -412,6 +343,7 @@ export const DEFAULT_MODELS = [
       id: "bytedance",
       providerName: "ByteDance",
       providerType: "bytedance",
+      company: "字节跳动",
       sorted: 6,
     },
   })),
@@ -423,6 +355,7 @@ export const DEFAULT_MODELS = [
       id: "alibaba",
       providerName: "Alibaba",
       providerType: "alibaba",
+      company: "阿里",
       sorted: 7,
     },
   })),
@@ -434,18 +367,8 @@ export const DEFAULT_MODELS = [
       id: "tencent",
       providerName: "Tencent",
       providerType: "tencent",
+      company: "腾讯",
       sorted: 8,
-    },
-  })),
-  ...moonshotModes.map((name) => ({
-    name,
-    available: true,
-    sorted: seq++,
-    provider: {
-      id: "moonshot",
-      providerName: "Moonshot",
-      providerType: "moonshot",
-      sorted: 9,
     },
   })),
   ...iflytekModels.map((name) => ({
@@ -456,6 +379,7 @@ export const DEFAULT_MODELS = [
       id: "iflytek",
       providerName: "Iflytek",
       providerType: "iflytek",
+      company: "科大讯飞",
       sorted: 10,
     },
   })),
@@ -479,6 +403,6 @@ export const internalAllowedWebDavEndpoints = [
 
 export const DEFAULT_GA_ID = "G-89WN60ZK2E";
 export const PLUGINS = [
-  { name: "Stable Diffusion", path: Path.Sd },
-  { name: "Search Chat", path: Path.SearchChat },
+  // { name: "Stable Diffusion", path: Path.Sd },
+  { name: "搜索聊天记录", path: Path.SearchChat },
 ];

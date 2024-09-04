@@ -1,14 +1,10 @@
 import { getClientConfig } from "../config/client";
 import {
   ACCESS_CODE_PREFIX,
-  Azure,
   ModelProvider,
   ServiceProvider,
 } from "../constant";
 import { ChatMessage, ModelType, useAccessStore, useChatStore } from "../store";
-import { ChatGPTApi, DalleRequestPayload } from "./platforms/openai";
-import { GeminiProApi } from "./platforms/google";
-import { ClaudeApi } from "./platforms/anthropic";
 import { ErnieApi } from "./platforms/baidu";
 import { DoubaoApi } from "./platforms/bytedance";
 import { QwenApi } from "./platforms/alibaba";
@@ -19,7 +15,7 @@ import { SparkApi } from "./platforms/iflytek";
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
 
-export const Models = ["gpt-3.5-turbo", "gpt-4"] as const;
+export const Models = ["moonshot-v1-auto", "moonshot-v1-8k"] as const;
 export type ChatModel = ModelType;
 
 export interface MultimodalContent {
@@ -43,9 +39,6 @@ export interface LLMConfig {
   stream?: boolean;
   presence_penalty?: number;
   frequency_penalty?: number;
-  size?: DalleRequestPayload["size"];
-  quality?: DalleRequestPayload["quality"];
-  style?: DalleRequestPayload["style"];
 }
 
 export interface ChatOptions {
@@ -75,6 +68,7 @@ export interface LLMModelProvider {
   id: string;
   providerName: string;
   providerType: string;
+  company: string;
   sorted: number;
 }
 
@@ -108,14 +102,14 @@ interface ChatProvider {
 export class ClientApi {
   public llm: LLMApi;
 
-  constructor(provider: ModelProvider = ModelProvider.GPT) {
+  constructor(provider: ModelProvider = ModelProvider.Moonshot) {
     switch (provider) {
-      case ModelProvider.GeminiPro:
-        this.llm = new GeminiProApi();
-        break;
-      case ModelProvider.Claude:
-        this.llm = new ClaudeApi();
-        break;
+      // case ModelProvider.GeminiPro:
+      //   this.llm = new GeminiProApi();
+      //   break;
+      // case ModelProvider.Claude:
+      //   this.llm = new ClaudeApi();
+      //   break;
       case ModelProvider.Ernie:
         this.llm = new ErnieApi();
         break;
@@ -135,7 +129,7 @@ export class ClientApi {
         this.llm = new SparkApi();
         break;
       default:
-        this.llm = new ChatGPTApi();
+        this.llm = new MoonshotApi();
     }
   }
 
@@ -210,22 +204,16 @@ export function getHeaders() {
 
   function getConfig() {
     const modelConfig = chatStore.currentSession().mask.modelConfig;
-    const isGoogle = modelConfig.providerName == ServiceProvider.Google;
-    const isAzure = modelConfig.providerName === ServiceProvider.Azure;
-    const isAnthropic = modelConfig.providerName === ServiceProvider.Anthropic;
+    // const isGoogle = modelConfig.providerName == ServiceProvider.Google;
+    // const isAzure = modelConfig.providerName === ServiceProvider.Azure;
+    // const isAnthropic = modelConfig.providerName === ServiceProvider.Anthropic;
     const isBaidu = modelConfig.providerName == ServiceProvider.Baidu;
     const isByteDance = modelConfig.providerName === ServiceProvider.ByteDance;
     const isAlibaba = modelConfig.providerName === ServiceProvider.Alibaba;
     const isMoonshot = modelConfig.providerName === ServiceProvider.Moonshot;
     const isIflytek = modelConfig.providerName === ServiceProvider.Iflytek;
     const isEnabledAccessControl = accessStore.enabledAccessControl();
-    const apiKey = isGoogle
-      ? accessStore.googleApiKey
-      : isAzure
-      ? accessStore.azureApiKey
-      : isAnthropic
-      ? accessStore.anthropicApiKey
-      : isByteDance
+    const apiKey = isByteDance
       ? accessStore.bytedanceApiKey
       : isAlibaba
       ? accessStore.alibabaApiKey
@@ -235,11 +223,8 @@ export function getHeaders() {
       ? accessStore.iflytekApiKey && accessStore.iflytekApiSecret
         ? accessStore.iflytekApiKey + ":" + accessStore.iflytekApiSecret
         : ""
-      : accessStore.openaiApiKey;
+      : accessStore.moonshotApiKey;
     return {
-      isGoogle,
-      isAzure,
-      isAnthropic,
       isBaidu,
       isByteDance,
       isAlibaba,
@@ -251,25 +236,26 @@ export function getHeaders() {
   }
 
   function getAuthHeader(): string {
-    return isAzure ? "api-key" : isAnthropic ? "x-api-key" : "Authorization";
+    return "Authorization";
   }
 
   const {
-    isGoogle,
-    isAzure,
-    isAnthropic,
+    // isGoogle,
+    // isAzure,
+    // isAnthropic,
     isBaidu,
     apiKey,
     isEnabledAccessControl,
   } = getConfig();
   // when using google api in app, not set auth header
-  if (isGoogle && clientConfig?.isApp) return headers;
+  // if (isGoogle && clientConfig?.isApp) return headers;
   // when using baidu api in app, not set auth header
   if (isBaidu && clientConfig?.isApp) return headers;
 
   const authHeader = getAuthHeader();
 
-  const bearerToken = getBearerToken(apiKey, isAzure || isAnthropic);
+  // const bearerToken = getBearerToken(apiKey, isAzure || isAnthropic);
+  const bearerToken = "";
 
   if (bearerToken) {
     headers[authHeader] = bearerToken;
@@ -284,10 +270,10 @@ export function getHeaders() {
 
 export function getClientApi(provider: ServiceProvider): ClientApi {
   switch (provider) {
-    case ServiceProvider.Google:
-      return new ClientApi(ModelProvider.GeminiPro);
-    case ServiceProvider.Anthropic:
-      return new ClientApi(ModelProvider.Claude);
+    // case ServiceProvider.Google:
+    //   return new ClientApi(ModelProvider.GeminiPro);
+    // case ServiceProvider.Anthropic:
+    //   return new ClientApi(ModelProvider.Claude);
     case ServiceProvider.Baidu:
       return new ClientApi(ModelProvider.Ernie);
     case ServiceProvider.ByteDance:
@@ -301,6 +287,6 @@ export function getClientApi(provider: ServiceProvider): ClientApi {
     case ServiceProvider.Iflytek:
       return new ClientApi(ModelProvider.Iflytek);
     default:
-      return new ClientApi(ModelProvider.GPT);
+      return new ClientApi(ModelProvider.Moonshot);
   }
 }

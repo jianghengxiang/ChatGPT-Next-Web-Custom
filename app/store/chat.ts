@@ -125,12 +125,13 @@ function fillTemplateWith(input: string, modelConfig: ModelConfig) {
   // Find the model in the DEFAULT_MODELS array that matches the modelConfig.model
   const modelInfo = DEFAULT_MODELS.find((m) => m.name === modelConfig.model);
 
-  var serviceProvider = "OpenAI";
+  var serviceProvider = "Moonshot";
   if (modelInfo) {
     // TODO: auto detect the providerName from the modelConfig.model
 
     // Directly use the providerName from the modelInfo
     serviceProvider = modelInfo.provider.providerName;
+    // console.log(222,serviceProvider,input)
   }
 
   const vars = {
@@ -141,6 +142,7 @@ function fillTemplateWith(input: string, modelConfig: ModelConfig) {
     lang: getLang(),
     input: input,
   };
+  console.log(111, vars);
 
   let output = modelConfig.template ?? DEFAULT_INPUT_TEMPLATE;
 

@@ -225,7 +225,7 @@ export function SideBar(props: { className?: string }) {
       {...props}
     >
       <SideBarHeader
-        title="NextChat"
+        title="小江助手"
         subTitle="Build your own AI assistant."
         logo={<ChatGptIcon />}
       >
@@ -255,7 +255,7 @@ export function SideBar(props: { className?: string }) {
           <Selector
             items={[
               {
-                title: "👇 Please select the plugin you need to use",
+                title: "👇",
                 value: "-",
                 disable: true,
               },
@@ -304,15 +304,15 @@ export function SideBar(props: { className?: string }) {
                 />
               </Link>
             </div>
-            <div className={styles["sidebar-action"]}>
-              <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
-                <IconButton
-                  aria={Locale.Export.MessageFromChatGPT}
-                  icon={<GithubIcon />}
-                  shadow
-                />
-              </a>
-            </div>
+            {/*<div className={styles["sidebar-action"]}>*/}
+            {/*  <a href={REPO_URL} target="_blank" rel="noopener noreferrer">*/}
+            {/*    <IconButton*/}
+            {/*      aria={Locale.Export.MessageFromChatGPT}*/}
+            {/*      icon={<GithubIcon />}*/}
+            {/*      shadow*/}
+            {/*    />*/}
+            {/*  </a>*/}
+            {/*</div>*/}
           </>
         }
         secondaryAction={
