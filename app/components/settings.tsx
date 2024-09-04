@@ -51,14 +51,11 @@ import Locale, {
 import { copyToClipboard } from "../utils";
 import Link from "next/link";
 import {
-  Anthropic,
-  Azure,
   Baidu,
   Tencent,
   ByteDance,
   Alibaba,
   Moonshot,
-  Google,
   GoogleSafetySettingsThreshold,
   OPENAI_BASE_URL,
   Path,
@@ -603,7 +600,7 @@ export function Settings() {
     return (
       accessStore.hideBalanceQuery ||
       isOpenAiUrl ||
-      accessStore.provider === ServiceProvider.Azure
+      accessStore.provider === ServiceProvider.Moonshot
     );
   }, [
     accessStore.hideBalanceQuery,
