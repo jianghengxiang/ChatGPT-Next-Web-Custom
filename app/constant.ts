@@ -257,22 +257,23 @@ export const KnowledgeCutOffDate: Record<string, string> = {
 };
 
 const baiduModels = [
-  "ernie-4.0-turbo-8k",
-  "ernie-4.0-8k",
-  "ernie-3.5-8k",
+  // "ernie-4.0-turbo-8k",
+  // "ernie-4.0-8k",
+  // "ernie-3.5-8k",
   // "ernie-speed-128k",
   // "ernie-speed-8k",
   "ernie-lite-8k",
   // "ernie-tiny-8k",
 ];
 
-const bytedanceModels = ["ep-20240905081857-fctqk", "ep-20240905081823-hfbck"];
+const bytedanceModels = ["ep-20240905081823-hfbck"];
 
 const alibabaModes = [
   "qwen-turbo",
-  "qwen-plus",
-  "qwen-max",
-  "qwen2-72b-instruct",
+  // "qwen-turbo",
+  // "qwen-plus",
+  // "qwen-max",
+  // "qwen2-72b-instruct",
   // "qwen-max-0428",
   // "qwen-max-0403",
   // "qwen-max-0107",
@@ -281,25 +282,35 @@ const alibabaModes = [
 
 const tencentModels = [
   "hunyuan-pro",
-  "hunyuan-standard",
-  "hunyuan-lite",
+  // "hunyuan-standard",
+  // "hunyuan-lite",
   // "hunyuan-role",
   // "hunyuan-functioncall",
   // "hunyuan-code",
   // "hunyuan-vision",
 ];
 
-const moonshotModes = ["moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k"];
+const moonshotModes = ["moonshot-v1-auto"];
 
 const iflytekModels = [
-  "general",
+  // "general",
   // "generalv3",
   // "pro-128k",
-  "generalv3.5",
+  // "generalv3.5",
   "4.0Ultra",
 ];
 
 let seq = 1000; // 内置的模型序号生成器从1000开始
+export const MODEL_PRD = {
+  "moonshot-v1-auto": "Kimi",
+  "ernie-4.0-turbo-8k": "文心一言",
+  "ernie-lite-8k": "文心一言",
+  "ep-20240905081823-hfbck": "豆包",
+  "hunyuan-pro": "腾讯混元",
+  "qwen-turbo": "通义千问",
+  "4.0Ultra": "讯飞星火",
+  unknown: "AI助手",
+};
 export const DEFAULT_MODELS = [
   ...moonshotModes.map((name) => ({
     name,
@@ -309,7 +320,7 @@ export const DEFAULT_MODELS = [
       id: "moonshot",
       providerName: "Moonshot",
       providerType: "moonshot",
-      company: "月之暗面",
+      company: "Kimi",
       sorted: 1,
     },
   })),
@@ -321,7 +332,7 @@ export const DEFAULT_MODELS = [
       id: "baidu",
       providerName: "Baidu",
       providerType: "baidu",
-      company: "百度",
+      company: "文心一言",
       sorted: 5,
     },
   })),
@@ -333,7 +344,7 @@ export const DEFAULT_MODELS = [
       id: "bytedance",
       providerName: "ByteDance",
       providerType: "bytedance",
-      company: "字节跳动",
+      company: "豆包",
       sorted: 6,
     },
   })),
@@ -345,7 +356,7 @@ export const DEFAULT_MODELS = [
       id: "alibaba",
       providerName: "Alibaba",
       providerType: "alibaba",
-      company: "阿里",
+      company: "通义千问",
       sorted: 7,
     },
   })),
@@ -357,7 +368,7 @@ export const DEFAULT_MODELS = [
       id: "tencent",
       providerName: "Tencent",
       providerType: "tencent",
-      company: "腾讯",
+      company: "腾讯混元",
       sorted: 8,
     },
   })),
@@ -369,7 +380,7 @@ export const DEFAULT_MODELS = [
       id: "iflytek",
       providerName: "Iflytek",
       providerType: "iflytek",
-      company: "科大讯飞",
+      company: "讯飞星火",
       sorted: 10,
     },
   })),

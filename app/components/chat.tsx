@@ -96,6 +96,7 @@ import {
   UNFINISHED_INPUT,
   ServiceProvider,
   Plugin,
+  MODEL_PRD,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -612,9 +613,7 @@ export function ChatActions(props: {
         <Selector
           defaultSelectedValue={`${currentModel}@${currentProviderName}`}
           items={models.map((m) => ({
-            title: `${m.displayName}${
-              m?.provider?.providerName ? "(" + m?.provider?.company + ")" : ""
-            }`,
+            title: `${m?.provider?.company}`,
             value: `${m.name}@${m?.provider?.providerName}`,
           }))}
           onClose={() => setShowModelSelector(false)}
@@ -1461,6 +1460,9 @@ function _Chat() {
           const showTyping = message.preview || message.streaming;
 
           const shouldShowClearContextDivider = i === clearContextIndex - 1;
+          const modelName = message.model || "unknown";
+          // @ts-ignore
+          let prd_name = MODEL_PRD[modelName];
 
           return (
             <Fragment key={message.id}>
@@ -1526,7 +1528,7 @@ function _Chat() {
                     </div>
                     {!isUser && (
                       <div className={styles["chat-model-name"]}>
-                        {message.model}
+                        {prd_name}
                       </div>
                     )}
 
