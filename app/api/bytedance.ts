@@ -77,6 +77,7 @@ async function request(req: NextRequest) {
     duplex: "half",
     signal: controller.signal,
   };
+  // console.log(111,req.text())
 
   // #1815 try to refuse some request to some models
   if (serverConfig.customModels && req.body) {
@@ -85,7 +86,6 @@ async function request(req: NextRequest) {
       fetchOptions.body = clonedBody;
 
       const jsonBody = JSON.parse(clonedBody) as { model?: string };
-
       // not undefined and is false
       if (
         isModelAvailableInServer(
@@ -110,6 +110,7 @@ async function request(req: NextRequest) {
   }
 
   try {
+    console.log(fetchOptions.headers);
     const res = await fetch(fetchUrl, fetchOptions);
 
     // to prevent browser prompt for credentials

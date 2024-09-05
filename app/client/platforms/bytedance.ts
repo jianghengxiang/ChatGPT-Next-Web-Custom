@@ -104,7 +104,7 @@ export class DoubaoApi implements LLMApi {
 
     const controller = new AbortController();
     options.onController?.(controller);
-
+    console.log(requestPayload);
     try {
       const chatPath = this.path(ByteDance.ChatPath);
       const chatPayload = {

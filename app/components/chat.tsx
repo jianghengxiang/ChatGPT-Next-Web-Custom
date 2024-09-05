@@ -613,9 +613,7 @@ export function ChatActions(props: {
           defaultSelectedValue={`${currentModel}@${currentProviderName}`}
           items={models.map((m) => ({
             title: `${m.displayName}${
-              m?.provider?.providerName
-                ? "(" + m?.provider?.providerName + ")"
-                : ""
+              m?.provider?.providerName ? "(" + m?.provider?.company + ")" : ""
             }`,
             value: `${m.name}@${m?.provider?.providerName}`,
           }))}
