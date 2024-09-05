@@ -49,22 +49,22 @@ export function AuthPage() {
           );
         }}
       />
-      {!accessStore.hideUserApiKey ? (
-        <>
-          <div className={styles["auth-tips"]}>{Locale.Auth.SubTips}</div>
-          <input
-            className={styles["auth-input"]}
-            type="password"
-            placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
-            value={accessStore.moonshotApiKey}
-            onChange={(e) => {
-              accessStore.update(
-                (access) => (access.moonshotApiKey = e.currentTarget.value),
-              );
-            }}
-          />
-        </>
-      ) : null}
+      {/*{!accessStore.hideUserApiKey ? (*/}
+      {/*  <>*/}
+      {/*    <div className={styles["auth-tips"]}>{Locale.Auth.SubTips}</div>*/}
+      {/*    <input*/}
+      {/*      className={styles["auth-input"]}*/}
+      {/*      type="password"*/}
+      {/*      placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}*/}
+      {/*      value={accessStore.moonshotApiKey}*/}
+      {/*      onChange={(e) => {*/}
+      {/*        accessStore.update(*/}
+      {/*          (access) => (access.moonshotApiKey = e.currentTarget.value),*/}
+      {/*        );*/}
+      {/*      }}*/}
+      {/*    />*/}
+      {/*  </>*/}
+      {/*) : null}*/}
 
       <div className={styles["auth-actions"]}>
         <IconButton
